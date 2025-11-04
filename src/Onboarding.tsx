@@ -49,6 +49,8 @@ const Onboarding: React.FC<OnboardingProps> = ({
   disableConsoleLogs = false,
   scrollToTop = true,
   noInViewScroll = false,
+  labels,
+  i18n,
 }) => {
   return (
     <OnboardingReact
@@ -68,6 +70,8 @@ const Onboarding: React.FC<OnboardingProps> = ({
       disableConsoleLogs={disableConsoleLogs}
       scrollToTop={scrollToTop}
       noInViewScroll={noInViewScroll}
+      labels={labels}
+      i18n={i18n}
     />
   );
 };

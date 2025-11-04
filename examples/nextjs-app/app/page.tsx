@@ -5,6 +5,34 @@ import type { Tour } from '@selvklart/onboarding';
 
 const tours: Tour[] = [
   {
+    tour: 'norwegian-demo',
+    steps: [
+      {
+        icon: <></>,
+        title: 'Velkommen!',
+        content: 'Dette er en demonstrasjon av norsk oversettelse. Klikk Neste for å fortsette.',
+        showControls: true,
+        showSkip: true,
+      },
+      {
+        icon: <></>,
+        title: 'Steg 2',
+        content: 'Dette er det andre trinnet i guidet omvisning.',
+        selector: '[data-tour="top-left"]',
+        side: 'bottom',
+        showControls: true,
+        showSkip: true,
+      },
+      {
+        icon: <></>,
+        title: 'Siste steg',
+        content: 'Gratulerer! Du har fullført den norske omvisningen.',
+        showControls: true,
+        showSkip: false,
+      },
+    ],
+  },
+  {
     tour: 'positioning-demo',
     steps: [
       {
@@ -101,29 +129,54 @@ function DemoContent() {
         <p style={{ fontSize: '1.125rem', color: '#6b7280', marginBottom: '2rem' }}>
           Test the positioning cutoff prevention feature
         </p>
-        <button
-          data-testid="start-tour-button"
-          onClick={() => startOnboarding('positioning-demo')}
-          style={{
-            padding: '0.75rem 2rem',
-            fontSize: '1rem',
-            fontWeight: '600',
-            color: 'white',
-            backgroundColor: '#2563eb',
-            borderRadius: '0.5rem',
-            cursor: 'pointer',
-            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-            transition: 'all 0.2s',
-          }}
-          onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#1d4ed8';
-          }}
-          onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#2563eb';
-          }}
-        >
-          Start Positioning Tour
-        </button>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+          <button
+            data-testid="start-norwegian-tour-button"
+            onClick={() => startOnboarding('norwegian-demo')}
+            style={{
+              padding: '0.75rem 2rem',
+              fontSize: '1rem',
+              fontWeight: '600',
+              color: 'white',
+              backgroundColor: '#10b981',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.2s',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = '#059669';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = '#10b981';
+            }}
+          >
+            Start Norwegian Tour (Norsk)
+          </button>
+          <button
+            data-testid="start-tour-button"
+            onClick={() => startOnboarding('positioning-demo')}
+            style={{
+              padding: '0.75rem 2rem',
+              fontSize: '1rem',
+              fontWeight: '600',
+              color: 'white',
+              backgroundColor: '#2563eb',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+              transition: 'all 0.2s',
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = '#1d4ed8';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = '#2563eb';
+            }}
+          >
+            Start Positioning Tour
+          </button>
+        </div>
       </header>
 
       {/* Grid of positioned elements */}

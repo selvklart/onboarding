@@ -70,6 +70,25 @@ export interface OnboardingProps {
   disableConsoleLogs?: boolean;
   scrollToTop?: boolean;
   noInViewScroll?: boolean;
+  labels?: OnboardingLabels;
+  i18n?: (key: string) => string;
+}
+
+// Localization
+export interface OnboardingLabels {
+  next?: string;
+  previous?: string;
+  finish?: string;
+  skip?: string;
+  stepCounter?: (current: number, total: number) => string;
+  ariaLabels?: {
+    closeButton?: string;
+    nextButton?: string;
+    previousButton?: string;
+    finishButton?: string;
+    skipButton?: string;
+    card?: string;
+  };
 }
 
 // Custom Card
@@ -81,4 +100,5 @@ export interface CardComponentProps {
   prevStep: () => void;
   skipTour?: () => void;
   arrow: JSX.Element;
+  labels?: OnboardingLabels;
 }

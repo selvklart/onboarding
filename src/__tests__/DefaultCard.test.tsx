@@ -233,7 +233,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /previous/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /go to previous step/i })).toBeInTheDocument();
     });
 
     it('should hide "Previous" button when showControls is false', () => {
@@ -270,7 +270,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /previous/i })).toBeDisabled();
+      expect(screen.getByRole('button', { name: /go to previous step/i })).toBeDisabled();
     });
 
     it('should enable "Previous" button on non-first steps', () => {
@@ -286,7 +286,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /previous/i })).not.toBeDisabled();
+      expect(screen.getByRole('button', { name: /go to previous step/i })).not.toBeDisabled();
     });
 
     it('should render "Next" button on non-last steps when showControls is true', () => {
@@ -302,7 +302,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /^next$/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /go to next step/i })).toBeInTheDocument();
     });
 
     it('should hide "Next" button when showControls is false', () => {
@@ -339,7 +339,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      expect(screen.getByRole('button', { name: /finish/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /finish tour/i })).toBeInTheDocument();
       expect(screen.queryByRole('button', { name: /^next$/i })).not.toBeInTheDocument();
     });
 
@@ -454,7 +454,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      await user.click(screen.getByRole('button', { name: /previous/i }));
+      await user.click(screen.getByRole('button', { name: /go to previous step/i }));
       expect(mockPrevStep).toHaveBeenCalledTimes(1);
     });
 
@@ -473,7 +473,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      await user.click(screen.getByRole('button', { name: /^next$/i }));
+      await user.click(screen.getByRole('button', { name: /go to next step/i }));
       expect(mockNextStep).toHaveBeenCalledTimes(1);
     });
 
@@ -492,7 +492,7 @@ describe('DefaultCard Component', () => {
         />
       );
 
-      await user.click(screen.getByRole('button', { name: /finish/i }));
+      await user.click(screen.getByRole('button', { name: /finish tour/i }));
       expect(mockSkipTour).toHaveBeenCalledTimes(1);
     });
 
@@ -531,8 +531,8 @@ describe('DefaultCard Component', () => {
       );
 
       expect(screen.getByText('1 of 1')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /previous/i })).toBeDisabled();
-      expect(screen.getByRole('button', { name: /finish/i })).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /go to previous step/i })).toBeDisabled();
+      expect(screen.getByRole('button', { name: /finish tour/i })).toBeInTheDocument();
       expect(screen.queryByRole('button', { name: /^next$/i })).not.toBeInTheDocument();
     });
 

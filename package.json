@@ -6,6 +6,33 @@
   "author": "Selvklart AS",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selvklart/onboarding.git"
+  },
+  "bugs": {
+    "url": "https://github.com/selvklart/onboarding/issues"
+  },
+  "homepage": "https://github.com/selvklart/onboarding#readme",
+  "keywords": [
+    "onboarding",
+    "tour",
+    "guide",
+    "tutorial",
+    "nextjs",
+    "react",
+    "motion",
+    "user-onboarding",
+    "product-tour",
+    "walkthrough",
+    "step-by-step",
+    "interactive-guide"
+  ],
   "scripts": {
     "build": "tsc --project tsconfig.json",
     "start": "npm run build && node dist/index.js",
@@ -15,7 +42,8 @@
     "test:coverage": "vitest --coverage",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "test:all": "npm run test && npm run test:e2e"
+    "test:all": "npm run test && npm run test:e2e",
+    "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "motion": ">=11",

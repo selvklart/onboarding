@@ -5,7 +5,7 @@ import { motion, useInView } from 'motion/react';
 import { useWindowAdapter } from './adapters/window';
 
 // Types
-import { OnboardingProps } from './types';
+import { OnboardingProps, OnboardingLabels } from './types';
 import DefaultCard from './DefaultCard';
 import DynamicPortal from './DynamicPortal';
 import SmoothSpotlight from './SmoothSpotlight';
@@ -61,6 +61,8 @@ const OnboardingReact: React.FC<OnboardingProps> = ({
   disableConsoleLogs = false,
   scrollToTop = true,
   noInViewScroll = false,
+  labels,
+  i18n,
 }) => {
   const { currentTour, currentStep, setCurrentStep, isOnboardingVisible, closeOnboarding } =
     useOnboarding();
@@ -84,6 +86,41 @@ const OnboardingReact: React.FC<OnboardingProps> = ({
   const [scrollableParent, setScrollableParent] = useState<Element | null>(null);
 
   const router = navigationAdapter();
+
+  // Merge labels from both sources (i18n function takes precedence over direct labels)
+  const mergedLabels: OnboardingLabels | undefined = useMemo(() => {
+    if (!labels && !i18n) return undefined;
+
+    const result: OnboardingLabels = {};
+
+    // Start with direct labels
+    if (labels) {
+      result.next = labels.next;
+      result.previous = labels.previous;
+      result.finish = labels.finish;
+      result.skip = labels.skip;
+      result.stepCounter = labels.stepCounter;
+      result.ariaLabels = labels.ariaLabels;
+    }
+
+    // Override with i18n if available
+    if (i18n) {
+      result.next = i18n('onboarding.next');
+      result.previous = i18n('onboarding.previous');
+      result.finish = i18n('onboarding.finish');
+      result.skip = i18n('onboarding.skip');
+      result.ariaLabels = {
+        closeButton: i18n('onboarding.ariaLabels.closeButton'),
+        nextButton: i18n('onboarding.ariaLabels.nextButton'),
+        previousButton: i18n('onboarding.ariaLabels.previousButton'),
+        finishButton: i18n('onboarding.ariaLabels.finishButton'),
+        skipButton: i18n('onboarding.ariaLabels.skipButton'),
+        card: i18n('onboarding.ariaLabels.card'),
+      };
+    }
+
+    return result;
+  }, [labels, i18n]);
 
   // - -
   // Handle pop state
@@ -1097,6 +1134,7 @@ const OnboardingReact: React.FC<OnboardingProps> = ({
                       />
                     }
                     skipTour={skipTour}
+                    labels={mergedLabels}
                   />
                 ) : (
                   <DefaultCard
@@ -1113,6 +1151,7 @@ const OnboardingReact: React.FC<OnboardingProps> = ({
                       />
                     }
                     skipTour={skipTour}
+                    labels={mergedLabels}
                   />
                 )}
               </motion.div>

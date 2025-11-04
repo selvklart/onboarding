@@ -41,7 +41,7 @@ import SmoothSpotlight from './SmoothSpotlight';
  *   <YourAppContent />
  * </OnboardingReact>
  */
-const OnboardingReact = ({ children, steps, shadowRgb = '0, 0, 0', shadowOpacity = '0.2', cardTransition = { ease: 'anticipate', duration: 0.6 }, cardComponent: CardComponent, onStart = () => { }, onStepChange = () => { }, onComplete = () => { }, onSkip = () => { }, displayArrow = true, clickThroughOverlay = false, navigationAdapter = useWindowAdapter, disableConsoleLogs = false, scrollToTop = true, noInViewScroll = false, }) => {
+const OnboardingReact = ({ children, steps, shadowRgb = '0, 0, 0', shadowOpacity = '0.2', cardTransition = { ease: 'anticipate', duration: 0.6 }, cardComponent: CardComponent, onStart = () => { }, onStepChange = () => { }, onComplete = () => { }, onSkip = () => { }, displayArrow = true, clickThroughOverlay = false, navigationAdapter = useWindowAdapter, disableConsoleLogs = false, scrollToTop = true, noInViewScroll = false, labels, i18n, }) => {
     const { currentTour, currentStep, setCurrentStep, isOnboardingVisible, closeOnboarding } = useOnboarding();
     const currentTourSteps = steps.find((tour) => tour.tour === currentTour)?.steps;
     const [elementToScroll, setElementToScroll] = useState(null);
@@ -55,6 +55,37 @@ const OnboardingReact = ({ children, steps, shadowRgb = '0, 0, 0', shadowOpacity
     const [viewportRect, setViewportRect] = useState(null);
     const [scrollableParent, setScrollableParent] = useState(null);
     const router = navigationAdapter();
+    // Merge labels from both sources (i18n function takes precedence over direct labels)
+    const mergedLabels = useMemo(() => {
+        if (!labels && !i18n)
+            return undefined;
+        const result = {};
+        // Start with direct labels
+        if (labels) {
+            result.next = labels.next;
+            result.previous = labels.previous;
+            result.finish = labels.finish;
+            result.skip = labels.skip;
+            result.stepCounter = labels.stepCounter;
+            result.ariaLabels = labels.ariaLabels;
+        }
+        // Override with i18n if available
+        if (i18n) {
+            result.next = i18n('onboarding.next');
+            result.previous = i18n('onboarding.previous');
+            result.finish = i18n('onboarding.finish');
+            result.skip = i18n('onboarding.skip');
+            result.ariaLabels = {
+                closeButton: i18n('onboarding.ariaLabels.closeButton'),
+                nextButton: i18n('onboarding.ariaLabels.nextButton'),
+                previousButton: i18n('onboarding.ariaLabels.previousButton'),
+                finishButton: i18n('onboarding.ariaLabels.finishButton'),
+                skipButton: i18n('onboarding.ariaLabels.skipButton'),
+                card: i18n('onboarding.ariaLabels.card'),
+            };
+        }
+        return result;
+    }, [labels, i18n]);
     // - -
     // Handle pop state
     const handlePopState = useCallback(() => {
@@ -875,7 +906,7 @@ const OnboardingReact = ({ children, steps, shadowRgb = '0, 0, 0', shadowOpacity
                                     minWidth: 'min-content',
                                     pointerEvents: 'auto',
                                     zIndex: 999,
-                                }, children: CardComponent ? (_jsx(CardComponent, { step: currentTourSteps?.[currentStep], currentStep: currentStep, totalSteps: currentTourSteps?.length ?? 0, nextStep: nextStep, prevStep: prevStep, arrow: _jsx(CardArrow, { isVisible: !!(currentTourSteps?.[currentStep]?.selector && displayArrow) }), skipTour: skipTour })) : (_jsx(DefaultCard, { step: currentTourSteps?.[currentStep], currentStep: currentStep, totalSteps: currentTourSteps?.length ?? 0, nextStep: nextStep, prevStep: prevStep, arrow: _jsx(CardArrow, { isVisible: !!(currentTourSteps?.[currentStep]?.selector && displayArrow) }), skipTour: skipTour })) }) })] }) })), pointerPosition &&
+                                }, children: CardComponent ? (_jsx(CardComponent, { step: currentTourSteps?.[currentStep], currentStep: currentStep, totalSteps: currentTourSteps?.length ?? 0, nextStep: nextStep, prevStep: prevStep, arrow: _jsx(CardArrow, { isVisible: !!(currentTourSteps?.[currentStep]?.selector && displayArrow) }), skipTour: skipTour, labels: mergedLabels })) : (_jsx(DefaultCard, { step: currentTourSteps?.[currentStep], currentStep: currentStep, totalSteps: currentTourSteps?.length ?? 0, nextStep: nextStep, prevStep: prevStep, arrow: _jsx(CardArrow, { isVisible: !!(currentTourSteps?.[currentStep]?.selector && displayArrow) }), skipTour: skipTour, labels: mergedLabels })) }) })] }) })), pointerPosition &&
                 isOnboardingVisible &&
                 currentTourSteps?.[currentStep]?.viewportID &&
                 scrollableParent && (_jsx(DynamicPortal, { children: _jsx(motion.div, { "data-name": "nextstep-overlay2", initial: "hidden", animate: isOnboardingVisible ? 'visible' : 'hidden', variants: variants, transition: { duration: 0.5 }, style: {

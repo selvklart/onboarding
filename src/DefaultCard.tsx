@@ -1,5 +1,21 @@
 import React from 'react';
-import { CardComponentProps } from './types';
+import { CardComponentProps, OnboardingLabels } from './types';
+
+const defaultLabels: Required<OnboardingLabels> = {
+  next: 'Next',
+  previous: 'Previous',
+  finish: 'Finish',
+  skip: 'Skip Tour',
+  stepCounter: (current: number, total: number) => `${current + 1} of ${total}`,
+  ariaLabels: {
+    closeButton: 'Close tour',
+    nextButton: 'Go to next step',
+    previousButton: 'Go to previous step',
+    finishButton: 'Finish tour',
+    skipButton: 'Skip tour',
+    card: 'Onboarding tour card',
+  },
+};
 
 const DefaultCard: React.FC<CardComponentProps> = ({
   step,
@@ -9,9 +25,27 @@ const DefaultCard: React.FC<CardComponentProps> = ({
   prevStep,
   skipTour,
   arrow,
+  labels: userLabels,
 }) => {
+  const labels: Required<OnboardingLabels> = {
+    next: userLabels?.next ?? defaultLabels.next,
+    previous: userLabels?.previous ?? defaultLabels.previous,
+    finish: userLabels?.finish ?? defaultLabels.finish,
+    skip: userLabels?.skip ?? defaultLabels.skip,
+    stepCounter: userLabels?.stepCounter ?? defaultLabels.stepCounter,
+    ariaLabels: {
+      closeButton: userLabels?.ariaLabels?.closeButton ?? defaultLabels.ariaLabels.closeButton,
+      nextButton: userLabels?.ariaLabels?.nextButton ?? defaultLabels.ariaLabels.nextButton,
+      previousButton: userLabels?.ariaLabels?.previousButton ?? defaultLabels.ariaLabels.previousButton,
+      finishButton: userLabels?.ariaLabels?.finishButton ?? defaultLabels.ariaLabels.finishButton,
+      skipButton: userLabels?.ariaLabels?.skipButton ?? defaultLabels.ariaLabels.skipButton,
+      card: userLabels?.ariaLabels?.card ?? defaultLabels.ariaLabels.card,
+    },
+  };
   return (
     <div
+      role="dialog"
+      aria-label={labels.ariaLabels.card}
       style={{
         backgroundColor: 'white',
         borderRadius: '0.5rem',
@@ -65,51 +99,57 @@ const DefaultCard: React.FC<CardComponentProps> = ({
       >
         <button
           onClick={prevStep}
+          aria-label={labels.ariaLabels.previousButton}
           style={{
             padding: '0.5rem 1rem',
             fontWeight: '500',
             color: '#4B5563',
             backgroundColor: '#F3F4F6',
             borderRadius: '0.375rem',
+            border: 'none',
             cursor: 'pointer',
             display: step.showControls ? 'block' : 'none',
           }}
           disabled={currentStep === 0}
         >
-          Previous
+          {labels.previous}
         </button>
         <span style={{ color: '#6B7280', whiteSpace: 'nowrap' }}>
-          {currentStep + 1} of {totalSteps}
+          {labels.stepCounter(currentStep, totalSteps)}
         </span>
         {currentStep === totalSteps - 1 ? (
           <button
             onClick={skipTour}
+            aria-label={labels.ariaLabels.finishButton}
             style={{
               padding: '0.5rem 1rem',
               fontWeight: '500',
               color: 'white',
               backgroundColor: '#10B981',
               borderRadius: '0.375rem',
+              border: 'none',
               cursor: 'pointer',
               display: step.showControls ? 'block' : 'none',
             }}
           >
-            Finish
+            {labels.finish}
           </button>
         ) : (
           <button
             onClick={nextStep}
+            aria-label={labels.ariaLabels.nextButton}
             style={{
               padding: '0.5rem 1rem',
               fontWeight: '500',
               color: 'white',
               backgroundColor: '#2563EB',
               borderRadius: '0.375rem',
+              border: 'none',
               cursor: 'pointer',
               display: step.showControls ? 'block' : 'none',
             }}
           >
-            Next
+            {labels.next}
           </button>
         )}
       </div>
@@ -119,6 +159,7 @@ const DefaultCard: React.FC<CardComponentProps> = ({
       {skipTour && currentStep < totalSteps - 1 && (
         <button
           onClick={skipTour}
+          aria-label={labels.ariaLabels.skipButton}
           style={{
             marginTop: '1rem',
             fontSize: '0.75rem',
@@ -128,11 +169,12 @@ const DefaultCard: React.FC<CardComponentProps> = ({
             color: '#4B5563',
             backgroundColor: '#F3F4F6',
             borderRadius: '0.375rem',
+            border: 'none',
             cursor: 'pointer',
             display: step.showSkip ? 'block' : 'none',
           }}
         >
-          Skip Tour
+          {labels.skip}
         </button>
       )}
     </div>
