@@ -6,7 +6,7 @@ const defaultLabels: Required<OnboardingLabels> = {
   previous: 'Previous',
   finish: 'Finish',
   skip: 'Skip Tour',
-  stepCounter: (current: number, total: number) => `${current + 1} of ${total}`,
+  of: 'of',
   ariaLabels: {
     closeButton: 'Close tour',
     nextButton: 'Go to next step',
@@ -32,7 +32,7 @@ const DefaultCard: React.FC<CardComponentProps> = ({
     previous: userLabels?.previous ?? defaultLabels.previous,
     finish: userLabels?.finish ?? defaultLabels.finish,
     skip: userLabels?.skip ?? defaultLabels.skip,
-    stepCounter: userLabels?.stepCounter ?? defaultLabels.stepCounter,
+    of: userLabels?.of ?? defaultLabels.of,
     ariaLabels: {
       closeButton: userLabels?.ariaLabels?.closeButton ?? defaultLabels.ariaLabels.closeButton,
       nextButton: userLabels?.ariaLabels?.nextButton ?? defaultLabels.ariaLabels.nextButton,
@@ -115,7 +115,7 @@ const DefaultCard: React.FC<CardComponentProps> = ({
           {labels.previous}
         </button>
         <span style={{ color: '#6B7280', whiteSpace: 'nowrap' }}>
-          {labels.stepCounter(currentStep, totalSteps)}
+          {currentStep + 1} {labels.of} {totalSteps}
         </span>
         {currentStep === totalSteps - 1 ? (
           <button
@@ -154,7 +154,9 @@ const DefaultCard: React.FC<CardComponentProps> = ({
         )}
       </div>
 
-      {arrow}
+      <span style={{ color: '#F3F4F6' }}>
+        {arrow}
+      </span>
 
       {skipTour && currentStep < totalSteps - 1 && (
         <button

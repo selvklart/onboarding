@@ -80,7 +80,7 @@ export interface OnboardingLabels {
   previous?: string;
   finish?: string;
   skip?: string;
-  stepCounter?: (current: number, total: number) => string;
+  of?: string;
   ariaLabels?: {
     closeButton?: string;
     nextButton?: string;
