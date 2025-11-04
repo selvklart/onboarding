@@ -1,4 +1,4 @@
 export { OnboardingProvider, useOnboarding } from './OnboardingContext';
-export { default as NextStep } from './Onboarding';
-export { default as NextStepReact } from './OnboardingReact';
-export { default as NextStepViewport } from './OnboardingViewport';
+export { default as Onboarding } from './Onboarding';
+export { default as OnboardingReact } from './OnboardingReact';
+export { default as OnboardingViewport } from './OnboardingViewport';

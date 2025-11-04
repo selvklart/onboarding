@@ -435,6 +435,106 @@ NextStep supports keyboard navigation:
 
 NextStep is a lightweight library and does not come with localization support. However, you can easily switch between languages by supplying the `steps` array based on locale.
 
+## Testing
+
+This library includes comprehensive testing infrastructure to ensure reliability and correctness.
+
+### Running Tests
+
+```bash
+# Run unit and component tests
+npm test
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+
+# Run E2E tests
+npm run test:e2e
+
+# Run E2E tests with UI
+npm run test:e2e:ui
+
+# Run all tests (unit + E2E)
+npm run test:all
+```
+
+### Test Structure
+
+The project includes three types of tests:
+
+#### 1. Unit Tests (`src/__tests__/positioning.test.ts`)
+Tests the core positioning logic that prevents cards from being cut off by viewport edges:
+- Tests all 12 positioning variations (top, bottom, left, right, and combinations)
+- Tests cutoff detection for all viewport edges
+- Tests position flipping behavior when cards would overflow
+- Tests the 256px threshold used for cutoff calculations
+- Tests mobile viewport scenarios
+- **39 test cases** covering edge cases and null handling
+
+#### 2. Component Tests (`src/__tests__/DefaultCard.test.tsx`)
+Tests the DefaultCard component functionality:
+- Basic rendering of title, content, icon, and arrow
+- Progress bar display and step counter
+- Navigation button visibility and states
+- "Previous" button disabled state on first step
+- "Next" button changes to "Finish" on last step
+- "Skip Tour" button visibility based on configuration
+- User interaction callbacks (nextStep, prevStep, skipTour)
+- Edge cases like single-step tours and empty content
+- **30 test cases** ensuring UI correctness
+
+#### 3. End-to-End Tests (`e2e/positioning.spec.ts`)
+Tests the complete onboarding flow in a real browser with Next.js:
+- Tour initialization and navigation
+- Positioning behavior for elements at all viewport edges (top-left, top-right, bottom-left, bottom-right, left, right, center)
+- Card visibility without cutoff for all positions
+- Skip tour functionality
+- Backward navigation with Previous button
+- Finish button on last step
+- Step counter accuracy
+- Spotlight effect on target elements
+- **18 test scenarios** covering real-world usage
+
+### Test Demo Application
+
+A full Next.js demo application is available in `examples/nextjs-app/` to manually test the library:
+
+```bash
+# Navigate to the demo app
+cd examples/nextjs-app
+
+# Install dependencies
+npm install
+
+# Run the demo
+npm run dev
+```
+
+Visit `http://localhost:3000` to see the positioning demo that showcases:
+- Elements positioned at all viewport edges
+- Automatic card repositioning to prevent cutoff
+- Tour navigation and controls
+- Visual demonstration of the positioning fix
+
+### Testing Philosophy
+
+The comprehensive test suite ensures:
+1. **Positioning Logic Correctness**: The core algorithm that prevents cards from being cut off is thoroughly tested with precise boundary conditions
+2. **Component Reliability**: All UI components work correctly with various configurations and edge cases
+3. **Real-World Validation**: E2E tests verify the library works as expected in actual Next.js applications
+4. **Regression Prevention**: Tests catch breaking changes during development
+
+### Coverage
+
+The test suite provides excellent coverage of:
+- Core positioning algorithm (checkSideCutOff function)
+- DefaultCard component rendering and interactions
+- Tour navigation and state management
+- Edge cases and boundary conditions
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
