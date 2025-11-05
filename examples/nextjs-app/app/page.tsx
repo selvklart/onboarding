@@ -1,6 +1,6 @@
 'use client';
 
-import { OnboardingProvider, useOnboarding, OnboardingReact } from '@selvklart/onboarding';
+import { OnboardingProvider, useOnboarding, Onboarding } from '@selvklart/onboarding';
 import type { Tour } from '@selvklart/onboarding';
 
 const tours: Tour[] = [
@@ -9,26 +9,11 @@ const tours: Tour[] = [
     steps: [
       {
         icon: <></>,
-        title: 'Velkommen!',
-        content: 'Dette er en demonstrasjon av norsk oversettelse. Klikk Neste for å fortsette.',
-        showControls: true,
-        showSkip: true,
-      },
-      {
-        icon: <></>,
         title: 'Steg 2',
         content: 'Dette er det andre trinnet i guidet omvisning.',
         selector: '[data-tour="top-left"]',
         side: 'bottom',
         showControls: true,
-        showSkip: true,
-      },
-      {
-        icon: <></>,
-        title: 'Siste steg',
-        content: 'Gratulerer! Du har fullført den norske omvisningen.',
-        showControls: true,
-        showSkip: false,
       },
     ],
   },
@@ -37,19 +22,11 @@ const tours: Tour[] = [
     steps: [
       {
         icon: <></>,
-        title: 'Welcome!',
-        content: 'This tour demonstrates the positioning cutoff prevention feature. Click Next to continue.',
-        showControls: true,
-        showSkip: true,
-      },
-      {
-        icon: <></>,
         title: 'Top Left Corner',
         content: 'This element is in the top-left corner. The card should flip to bottom to avoid cutoff.',
         selector: '[data-tour="top-left"]',
         side: 'left',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -58,7 +35,6 @@ const tours: Tour[] = [
         selector: '[data-tour="top-right"]',
         side: 'top',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -67,7 +43,6 @@ const tours: Tour[] = [
         selector: '[data-tour="bottom-left"]',
         side: 'bottom',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -76,7 +51,6 @@ const tours: Tour[] = [
         selector: '[data-tour="bottom-right"]',
         side: 'bottom',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -85,7 +59,6 @@ const tours: Tour[] = [
         selector: '[data-tour="left-edge"]',
         side: 'left',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -94,7 +67,6 @@ const tours: Tour[] = [
         selector: '[data-tour="right-edge"]',
         side: 'right',
         showControls: true,
-        showSkip: true,
       },
       {
         icon: <></>,
@@ -103,14 +75,6 @@ const tours: Tour[] = [
         selector: '[data-tour="center"]',
         side: 'bottom',
         showControls: true,
-        showSkip: true,
-      },
-      {
-        icon: <></>,
-        title: 'Tour Complete!',
-        content: 'You have seen how the positioning system automatically prevents cards from being cut off by viewport edges.',
-        showControls: true,
-        showSkip: false,
       },
     ],
   },
@@ -318,9 +282,9 @@ function DemoContent() {
 export default function Home() {
   return (
     <OnboardingProvider>
-      <OnboardingReact steps={tours}>
+      <Onboarding steps={tours}>
         <DemoContent />
-      </OnboardingReact>
+      </Onboarding>
     </OnboardingProvider>
   );
 }

@@ -1,6 +1,7 @@
 {
   "name": "@selvklart/onboarding",
   "version": "1.0.0",
+  "type": "module",
   "description": "Lightweight onboarding library for Next.js",
   "license": "MIT",
   "author": "Selvklart AS",
@@ -37,47 +38,41 @@
     "build": "tsc --project tsconfig.json",
     "start": "npm run build && node dist/index.js",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage",
-    "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui",
-    "test:all": "npm run test && npm run test:e2e",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint src --ext .ts,.tsx",
+    "lint:fix": "eslint src --ext .ts,.tsx --fix",
     "prepublishOnly": "npm run build"
   },
   "peerDependencies": {
     "motion": ">=11",
-    "next": ">=13.0.0",
+    "next": ">=14",
     "react": ">=18",
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@playwright/test": "^1.56.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^18.3.5",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^5.1.0",
-    "@vitest/coverage-v8": "^4.0.6",
-    "@vitest/ui": "^4.0.6",
-    "happy-dom": "^20.0.10",
+    "@types/canvas-confetti": "^1.9.0",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@typescript-eslint/eslint-plugin": "^8.21.0",
+    "@typescript-eslint/parser": "^8.21.0",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.3",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "motion": "^12.23.24",
-    "next": "^14.0.0",
-    "react": "^19.2.0",
-    "react-compiler-runtime": "19.0.0-beta-201e55d-20241215",
-    "react-dom": "^19.2.0",
-    "typescript": "^5.6.2",
-    "vitest": "^4.0.6"
+    "prettier": "^3.6.2",
+    "typescript": "^5.6.2"
   },
   "exports": {
     ".": {
       "import": "./dist/index.js",
       "types": "./dist/index.d.ts"
-    },
-    "./adapters/next": {
-      "import": "./dist/adapters/next/index.js",
-      "types": "./dist/adapters/next/index.d.ts"
     }
+  },
+  "dependencies": {
+    "@floating-ui/react-dom": "^2.1.6",
+    "@radix-ui/react-portal": "^1.1.10",
+    "canvas-confetti": "^1.9.4"
   }
 }

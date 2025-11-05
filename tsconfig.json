@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "esnext",
     "lib": ["dom", "esnext"],
-    "types": ["vitest/globals", "@testing-library/jest-dom", "node"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -22,13 +21,6 @@
   "include": ["src/**/*"],
   "exclude": [
     "node_modules",
-    "src/**/*.test.ts",
-    "src/**/*.test.tsx",
-    "src/__tests__",
     "examples",
-    "e2e",
-    "coverage",
-    "test-results",
-    "playwright-report"
   ]
 }

@@ -1,13 +1,10 @@
-export { OnboardingProvider, useOnboarding } from './OnboardingContext';
 export { default as Onboarding } from './Onboarding';
-export { default as OnboardingReact } from './OnboardingReact';
-
-export { default as OnboardingViewport } from './OnboardingViewport';
+export { OnboardingProvider, useOnboarding } from './OnboardingContext';
 export type {
-  OnboardingProps,
-  Tour,
-  Step,
-  OnboardingContextType,
   CardComponentProps,
+  OnboardingContextType,
+  OnboardingLabels,
+  OnboardingProps,
+  Step,
+  Tour,
 } from './types';
-export type { NavigationAdapter } from './types/navigation';

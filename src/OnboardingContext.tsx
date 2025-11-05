@@ -1,13 +1,11 @@
 'use client';
-'use no memo';
-
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
 // Types
-import { OnboardingContextType } from './types';
+import type { OnboardingContextType } from './types';
 
 // Example Hooks Usage:
-// const { setCurrentStep, closeNextStep, startNextStep } = useOnboarding();
+// const { setCurrentStep, closeOnboarding, startOnboarding } = useOnboarding();
 
 // // To trigger a specific step
 // setCurrentStep(2); // step 3
@@ -29,7 +27,7 @@ import { OnboardingContextType } from './types';
 const OnboardingContext = createContext<OnboardingContextType | undefined>(undefined);
 
 /**
- * Custom hook to access the NextStep context.
+ * Custom hook to access the Onboarding context.
  *
  * @throws Will throw an error if used outside of an OnboardingProvider.
  * @returns {OnboardingContextType} The context value containing state and methods for managing the onboarding process.

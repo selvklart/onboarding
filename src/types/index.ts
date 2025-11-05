@@ -1,5 +1,4 @@
-import { Transition } from 'motion/react';
-import { NavigationAdapter } from './navigation';
+import type { Transition } from 'motion';
 
 // Context
 export interface OnboardingContextType {
@@ -14,34 +13,18 @@ export interface OnboardingContextType {
 // Step
 export interface Step {
   // Step Content
-  icon: React.ReactNode | string | null;
+  icon?: React.ReactNode | string | null;
   title: string;
   content: React.ReactNode;
-  selector?: string;
+  selector: string;
   // Options
-  side?:
-    | 'top'
-    | 'bottom'
-    | 'left'
-    | 'right'
-    | 'top-left'
-    | 'top-right'
-    | 'bottom-left'
-    | 'bottom-right'
-    | 'left-top'
-    | 'left-bottom'
-    | 'right-top'
-    | 'right-bottom';
+  side?: 'top' | 'bottom' | 'left' | 'right';
   showControls?: boolean;
-  showSkip?: boolean;
-  blockKeyboardControl?: boolean;
   pointerPadding?: number;
   pointerRadius?: number;
   // Routing
   nextRoute?: string;
   prevRoute?: string;
-  // Dynamic Portal
-  viewportID?: string;
 }
 
 // Tour
@@ -54,24 +37,15 @@ export interface Tour {
 // Onboarding
 export interface OnboardingProps {
   children: React.ReactNode;
+  interact?: boolean;
   steps: Tour[];
-  showNextStep?: boolean;
+  showOnboarding?: boolean;
   shadowRgb?: string;
   shadowOpacity?: string;
   cardTransition?: Transition;
   cardComponent?: React.ComponentType<CardComponentProps>;
-  onStart?: (tourName: string | null) => void;
-  onStepChange?: (step: number, tourName: string | null) => void;
-  onComplete?: (tourName: string | null) => void;
-  onSkip?: (step: number, tourName: string | null) => void;
-  displayArrow?: boolean;
-  clickThroughOverlay?: boolean;
-  navigationAdapter?: () => NavigationAdapter;
-  disableConsoleLogs?: boolean;
   scrollToTop?: boolean;
-  noInViewScroll?: boolean;
   labels?: OnboardingLabels;
-  i18n?: (key: string) => string;
 }
 
 // Localization
@@ -98,7 +72,5 @@ export interface CardComponentProps {
   totalSteps: number;
   nextStep: () => void;
   prevStep: () => void;
-  skipTour?: () => void;
-  arrow: JSX.Element;
   labels?: OnboardingLabels;
 }
