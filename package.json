@@ -1,6 +1,6 @@
 {
   "name": "@selvklart/onboarding",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "type": "module",
   "description": "Lightweight onboarding library for Next.js",
   "license": "MIT",

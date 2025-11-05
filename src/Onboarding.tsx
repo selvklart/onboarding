@@ -9,7 +9,7 @@ import {
   useFloating,
 } from '@floating-ui/react-dom';
 import { Portal } from '@radix-ui/react-portal';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView } from 'motion/react';
 import { useRouter } from 'next/navigation';
 
 import { DefaultCard } from './DefaultCard';
@@ -205,7 +205,6 @@ const Onboarding: React.FC<OnboardingProps> = ({
   // Update pointerPosition when currentStep changes
   useEffect(() => {
     if (isOnboardingVisible && currentTourSteps) {
-      console.log('Onboarding: Current Step Changed');
       const step = currentTourSteps[currentStep];
       if (step) {
         const element = document.querySelector(step.selector) as Element | null;
@@ -228,7 +227,6 @@ const Onboarding: React.FC<OnboardingProps> = ({
 
   useEffect(() => {
     if (elementToScroll && !isInView && isOnboardingVisible) {
-      console.log('Onboarding: Element to Scroll Changed');
       scrollToElementWithCard(elementToScroll);
     }
   }, [elementToScroll, isInView, isOnboardingVisible]);
